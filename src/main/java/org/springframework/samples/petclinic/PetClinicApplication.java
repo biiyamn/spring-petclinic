@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication
 public class PetClinicApplication {
+
 	@Value("${tomcat.ajp.port}")
 	int ajpPort;
 
@@ -50,6 +51,7 @@ public class PetClinicApplication {
 			ajpConnector.setPort(ajpPort);
 			ajpConnector.setSecure(false);
 			ajpConnector.setAllowTrace(false);
+			ajpConnector.setProperty("address", "0.0.0.0");
 			ajpConnector.setScheme("http");
 			((AbstractAjpProtocol) ajpConnector.getProtocolHandler()).setSecretRequired(false);
 			tomcat.addAdditionalTomcatConnectors(ajpConnector);
@@ -57,6 +59,7 @@ public class PetClinicApplication {
 
 		return tomcat;
 	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(PetClinicApplication.class, args);
 	}
